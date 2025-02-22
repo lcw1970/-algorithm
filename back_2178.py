@@ -24,6 +24,7 @@ def bfs(x,y) :
                 visit[nx][ny] = True  # 방문 처리
                 q.append((nx, ny))  # 큐에 좌표 추가
         
+bfs(0,0)
 if visit[n-1][m-1] :
     print("가능")
 else :
