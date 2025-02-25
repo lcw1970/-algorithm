@@ -12,6 +12,8 @@ for _ in range(m) :
     one,two = map(int,input().split())
     graph[one].append(two)
     graph[two].append(one)
+for i in range(1,n+1) :
+    graph[i].sort()
 def dfs(x) :
     print(x, end = ' ')
     visit_dfs[x] = True
@@ -21,8 +23,7 @@ def dfs(x) :
 
 def bfs(x) :
     visit_bfs[x] = True
-    q =deque()
-    q.append(x)
+    q =deque([x])
     while q :
         num = q.popleft()
         print(num,end = ' ')
