@@ -1,17 +1,16 @@
-import sys
-input = sys.stdin.readline
-k,n = map(int, input().split())
-len_cables = [int(input().strip()) for _ in range(k)]
+n,k = map(int,input().split())
 
-start, end = 1,max(len_cables)
+lst = [int(input()) for _ in range(n)]
+
+start = 1
+end = max(lst)
 result = 0
-while start<= end :
-    mid = (start+end) // 2
-    count = 0
-    for lan in len_cables :
-        count += lan // mid
-    
-    if count >=n :
+while (start <= end) :
+    mid = (start + end) // 2
+    total = 0
+    for x in lst :
+        total += (x//mid)
+    if total >= k :
         result = mid
         start = mid + 1
     else :
