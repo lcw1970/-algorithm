@@ -1,9 +1,11 @@
 n = int(input())
 lst = []
 for _ in range(n) :
-    word = lst.append(input())
+    lst.append(input())
 
 lst = set(lst)
-lst = list(lst)
 
-print(lst)
+sort_lst = sorted(lst,key=lambda x:(len(x),x))
+
+for i in sort_lst :
+    print(i)
