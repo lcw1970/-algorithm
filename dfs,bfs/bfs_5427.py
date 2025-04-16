@@ -5,16 +5,17 @@ def bfs(x,y) :
     q.append((x,y))
     while q :
         cx,cy = q.popleft()
+        if cx == 0 or cx == h - 1 or cy == 0 or cy == w - 1:
+                return move[cx][cy] + 1
         for i in range(4) :
             nx = cx + dx[i]
             ny = cy + dy[i]
             if 0 <= nx < h and 0 <= ny < w :
-                if graph[nx][ny] == "." :
-                    q.append((nx,ny))
-                    move[nx][ny] = move[cx][cy] +1
-                    graph[nx][ny] = "#"
-            elif 0 > nx or nx >= h or 0 >ny or ny >=w :
-                return move[cx][cy] +1
+                if graph[nx][ny] == "." and move[nx][ny] == 0 :
+                    if move_fire[nx][ny] == 0 or move_fire[nx][ny] > move[cx][cy]+1 :
+                        q.append((nx,ny))
+                        move[nx][ny] = move[cx][cy] +1
+            
     return 0
             
 def fire_bfs() :
@@ -29,13 +30,10 @@ def fire_bfs() :
             nx = cx + dx[i]
             ny = cy + dy[i]
             if 0 <= nx < h and 0 <= ny < w :
-                if fire_graph[nx][ny] != "#" :
+                if fire_graph[nx][ny] == "." and move_fire[nx][ny]== 0:
                     q_fire.append((nx,ny))
                     move_fire[nx][ny] = move_fire[cx][cy] +1
-                    fire_graph[nx][ny] = "#"
-            elif 0 > nx or nx >= h or 0 >ny or ny >=w :
-                return move_fire[cx][cy] +1
-    return 1000
+
                  
 t = int(input())
 
@@ -52,13 +50,13 @@ for _ in range(t):
         a = list(input())
         graph.append(a)
     fire_graph = copy.deepcopy(graph)
-    
+    fire_bfs()
     for i in range(h):
         for j in range(w) :
             if graph[i][j] == "@" :
                 result =bfs(i,j)
-    result_fire = fire_bfs()
-    if result > 0 and result < result_fire :
+    
+    if result > 0 :
         print(result)
     else :
         print("IMPOSSIBLE")
