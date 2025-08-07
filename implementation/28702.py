@@ -1,5 +1,5 @@
 lst = []
-num = []
+
 x = 0
 for _ in range(3):
     a= input()
