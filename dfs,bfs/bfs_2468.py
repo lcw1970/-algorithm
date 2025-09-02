@@ -13,6 +13,7 @@ def bfs(x,y,array) :
                 if array[nx][ny] != 0 :
                     q.append((nx,ny))
                     array[nx][ny] = 0
+                    
 def max_high(array) :
     result = 0
     for i in range(n) :
