@@ -1,39 +1,37 @@
-from collections import deque
-
-dx = [-1,1,0,0]
-dy = [0,0,-1,-1]
-
-def bfs(x,y,graph,m,n) :
-    q = deque()
-    q.append((x,y))
-    graph[x][y] = 0
-    while q :
-        cx,cy = q.popleft()
-        for i in range(4):
-            nx = cx + dx[i]
-            ny = cy + dy[i]
-
-            if 0 <= nx <n and 0 <= ny < m :
-                if graph[nx][ny] == 1 :
-                    graph[nx][ny] = 0 
-                    q.append((nx,ny))
+def change_num(a) :
+    if a == 0 :
+        return 1
+    else :
+        return 0
 
 
+n = int(input())
+switch_lst = list(map(int,input().split()))
+students = int(input())
+for _ in range(students) :
+    zenda,num = map(int,input().split())
+    if zenda == 1 :
+        
+        k = num
+        while (k <= n) :
+            switch_lst[k-1] = change_num(switch_lst[k-1])
+            print(f"스위치 교체: {switch_lst}")
+            k += num
 
-t = int(input())
+    if zenda == 2 :
+        p = 1
+        if switch_lst[num-1] == 1 :
+            switch_lst[num-1] =0 
+        else :
+            switch_lst[num-1] = 1
+        while (num-p >= 0 and num+p < n) :
+            if switch_lst[num-p] == switch_lst[num+p] :
+                switch_lst[num-p] =change_num(switch_lst[num-p])
+                switch_lst[num+p] =change_num(switch_lst[num+p])
+                print(f"스위치 교체: {switch_lst}") 
+                p += 1
+            else :
+                break
 
-
-for _ in range(t):
-    m,n,k = map(int,input().split())
-    graph = [[0]*m for _ in range(n)]
-    count = 0
-    for _ in range(k):
-        b,a = map(int,input().split())
-        graph[a][b] = 1
-
-    for i in range(n) :
-        for j in range(m) :
-            if graph[i][j] == 1 :
-                bfs(i,j,graph,m,n) 
-                count += 1
-    print(count)
+for i in switch_lst :
+    print(i,end = " ")
